@@ -76,6 +76,13 @@ export default {
         },
         isAll(){
             return this.completedNums===this.todoNums
+        },
+        edit(newObj){
+            for(let i = 0;i<this.things.length;i++){
+                if(this.things[i].id === newObj.id){
+                    this.things.splice(i,1,newObj)
+                }
+            }
         }
 
     },
@@ -86,7 +93,11 @@ export default {
               window.localStorage.setItem("things",JSON.stringify(value))
           }
       }
+    },
+    mounted() {
+      this.$bus.$on("edit",this.edit)
     }
+
 }
 </script>
 
@@ -113,6 +124,12 @@ export default {
         color: #fff;
         background-color: #da4f49;
         border: 1px solid #bd362f;
+    }
+    .btn-edit{
+        color: #ffffff;
+        background-color: skyblue;
+        border: solid #5ea9eb 1px;
+        margin-right: 5px;
     }
 
     .btn-danger:hover {
